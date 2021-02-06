@@ -1,0 +1,39 @@
+# Volumes appear in ./docker_volumes
+# Docker takes care of creating the volumes, but an ipfs-go issue forces some mkdir stuff. See README.md
+
+version: '3.3'
+# Afaik Codemao ops currently use Docker 17.07-ce, which uses docker-compose file format v3.3
+# Though it's possible that they'll upgrade to 18.06-ce which uses v3.7 (latest as of writing)
+
+services:
+
+    # uses postgres:10.7 with zhparser extension for better Chinese words search
+    postgres:
+        image: necolo/postgres-zhparser:latest
+        # build:
+        #     context: .
+        #     dockerfile: postgres_Dockerfile
+        restart: always
+        volumes:
+            - ./docker_volumes/dev_postgres:/var/lib/postgresql/data
+        environment:
+            PGDATA: "/var/lib/postgresql/data"
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: devrootpass
+        ports:
+            - "9901:5432"
+
+    adminer:
+        image: adminer
+        ports:
+            - "9999:8080"
+
+    ipfs:
+        image: ipfs/go-ipfs:v0.4.19
+        volumes:
+            - ./docker_volumes/dev_ipfs_data:/data/ipfs
+        ports:
+            - "4001" # Swarm TCP
+            - "8081" # Swarm Websockets
+            - "127.0.0.1:5002:5001" # Daemon API, bound to localhost so not exposed publicly
+            - "127.0.0.1:9903:8080" # Web Gateway, bound to localhost so not exposed publicly

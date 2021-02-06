@@ -1,0 +1,53 @@
+{
+    "compilerOptions": {
+    "downlevelIteration": true,
+    "allowSyntheticDefaultImports" : true,
+    "allowJs": true,
+    "declaration": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "jsx": "react",
+    "lib": ["dom", "es6", "es2015", "ES2017", "es5"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "outDir": "build",
+    "rootDirs": ["./src", "./config"],
+    "plugins": [
+        {
+            "name": "tslint-language-service"
+        }
+    ],
+        "removeComments": false,
+        "sourceMap": true,
+        "noImplicitUseStrict": true,
+        "noImplicitReturns": true,
+        "noImplicitAny": false,
+        "noImplicitThis": true,
+        "strictBindCallApply": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "strictPropertyInitialization": true,
+        "target": "ES2017",
+        "resolveJsonModule": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true
+    },
+    "paths": {
+        "*": [
+            "./types/*"
+        ]
+    },
+    "include": [
+        "src/app/*",
+        "types"
+    ],
+    "exclude": [
+        "build",
+        "node_modules",
+        "src/backend",
+        "src/mudb/example",
+        "src/mudb/tool",
+        "src/mudb/**/test/*"
+    ]
+}
