@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { FrontendClient } from '../client';
+const style = require('./style.css');
 
 export const ClientContext = React.createContext<FrontendClient|null>(null);
 export function useClientContext() {
@@ -15,8 +16,11 @@ export function FrontendUI (props:{
 }) {
 
     return <ClientContext.Provider value={props.client}>
-        <div>
-            Hellow
+        <div className='text-center text-2xl'>
+            Hello World.
+        </div>
+        <div className={style.container}>
+            This text has blue color
         </div>
     </ClientContext.Provider>
 }

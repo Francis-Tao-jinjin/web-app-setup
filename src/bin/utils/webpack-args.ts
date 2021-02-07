@@ -4,14 +4,14 @@ export const WEBPACK_CONFIG = {
             env: 'development',
             entryPoints: {
                 polyfill: './src/polyfill.ts',
-                webapp: './src/app/start-client.ts',
+                app: './src/app/start-client.ts',
             },
         },
         {
             env: 'production',
             entryPoints: {
                 polyfill: './src/polyfill.ts',
-                webapp: './src/app/start-client.ts',
+                app: './src/app/start-client.ts',
             },
         },
     ],
@@ -20,7 +20,7 @@ export const WEBPACK_CONFIG = {
             env: 'development',
             entryPoints: {
                 polyfill: './src/polyfill.ts',
-                webapp: './src/app/start-client.ts',
+                app: './src/app/start-client.ts',
             },
         },
     ],
@@ -29,7 +29,7 @@ export const WEBPACK_CONFIG = {
             env: 'production',
             entryPoints: {
                 polyfill: './src/polyfill.ts',
-                webapp: './src/app/start-client.ts',
+                app: './src/app/start-client.ts',
             },
         },
     ],

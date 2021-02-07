@@ -49,10 +49,11 @@ function getWebpackConfig(spec) {
     const plugins = [
         new MiniCssExtractPlugin({
             filename: `bundle.[name].${shortEnv}.css`,
+            chunkFilename: '[id].css',
         }),
         CleanUpStatsPlugin,
-        new webpack.IgnorePlugin({ resourceRegExp: /^sharp/ }),
-        new webpack.IgnorePlugin({ resourceRegExp: /^child_process/}),
+        new webpack.IgnorePlugin(/^sharp/),
+        new webpack.IgnorePlugin(/^child_process/),
     ];
 
     const config = {
@@ -62,9 +63,9 @@ function getWebpackConfig(spec) {
         entry: spec.entryPoints,
         plugins,
         performance: { hints: false },
-        // node: {
-        //     fs: false,
-        // },
+        node: {
+            fs: false,
+        },
         module: {
             rules: [
                 {
@@ -106,19 +107,45 @@ function getWebpackConfig(spec) {
                             options: {
                                 ident: 'postcss',
                                 plugins: [
-                                    tailwindcss('./tailwind.config.js'),
                                     cssValues,
                                     autoPrefixerPlugin,
                                 ],
                             },
                         },
                     ],
-                    exclude: /(node_modules\/react-responsive-carousel)/,
+                    exclude: /(global.css)/,
                 },
                 {
                     test: /\.css$/,
-                    use: ['style-loader', 'css-loader'],
-                    include: /(node_modules\/react-responsive-carousel)/
+                    include: SRC,
+                    use: [{
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            publicPath: '../',
+                        },
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: {
+                                localIdentName: '[local]'
+                            },
+                            importLoaders: 1,
+                            url: false,
+                        },
+                    },
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            ident: 'postcss',
+                            plugins: [
+                                tailwindcss('./tailwind.config.js'),
+                                cssValues,
+                                autoPrefixerPlugin,
+                            ],
+                        },
+                    }],
+                    include: /(global.css)/
                 },
             ],
         },
@@ -147,7 +174,6 @@ function logWebpackStats(stats) {
     logger.log(stats.toString({
         assets: false,
         children: hasErr || hasWarn, // must be true to show error/warn locations
-        // children: false,
         chunks: false,
         colors: true,
         entrypoints: false,
@@ -203,7 +229,6 @@ async function watchWebpack(specs) {
         };
         let hasCompleted = false;
         compiler.watch(opts, (err, stats) => {
-            logger.log('>>>> compiler.watch', err);
             if (err) {
                 logger.error(`web pack error: ${err.message} ${err.stack}`);
                 if (!hasCompleted) {

@@ -52,16 +52,13 @@ function forkWatch(modulePath:string, heapSize:number, useTS:boolean, jsonArgs:a
             args.push(JSON.stringify(jsonArgs));
         }
         args.push('' + startTime);
-        console.log('>>>> args:', args);
         const proc = child_process.spawn('node', args, { stdio: 'inherit' });
         console.log('Proc create');
         procs.push(proc);
         proc.on('error', (err) => {
-            console.error('>>>>> proc on error', err);
             reject(err);
         });
         proc.on('exit', () => {
-            console.error('>>>>> proc on exit');
             resolve('');
         });
     });

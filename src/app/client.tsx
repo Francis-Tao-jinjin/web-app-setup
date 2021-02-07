@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Logger } from '../utils/logger';
 import { FrontendUI } from './frontend';
+import './global.css';
 
 export class FrontendClient {
     public logger:Logger;
