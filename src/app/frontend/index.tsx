@@ -21,6 +21,8 @@ export function FrontendUI (props:{
         </div>
         <div className={style.container}>
             This text has blue color
+            <div className={style.testBgImg}>
+            </div>
         </div>
     </ClientContext.Provider>
 }

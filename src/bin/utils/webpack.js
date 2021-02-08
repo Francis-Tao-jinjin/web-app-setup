@@ -86,9 +86,6 @@ function getWebpackConfig(spec) {
                     use: [
                         {
                             loader: MiniCssExtractPlugin.loader,
-                            options: {
-                                publicPath: '../',
-                            },
                         },
                         {
                             loader: 'css-loader',
@@ -117,7 +114,7 @@ function getWebpackConfig(spec) {
                 },
                 {
                     test: /\.css$/,
-                    include: SRC,
+                    include: /(global.css)/,
                     use: [{
                         loader: MiniCssExtractPlugin.loader,
                         options: {
@@ -145,7 +142,6 @@ function getWebpackConfig(spec) {
                             ],
                         },
                     }],
-                    include: /(global.css)/
                 },
             ],
         },

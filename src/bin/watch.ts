@@ -79,9 +79,9 @@ async function run() {
         mkdirp(PATHS.BUILD),
         mkdirp(PATHS.STATICS),
     ]);
-    await Promise.all([
-        touch(PATHS.FRONTEND_CSS),
-    ]);
+    // await Promise.all([
+    //     touch(PATHS.FRONTEND_CSS),
+    // ]);
     logger.log('starting watch scripts...');
     const webpackConfig = (WEBPACK_CONFIG as any)[process.argv[process.argv.length - 1]] || WEBPACK_CONFIG.all;
 

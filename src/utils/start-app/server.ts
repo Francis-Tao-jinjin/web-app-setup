@@ -1,9 +1,6 @@
 import { Logger } from '../logger';
 import { EnvType } from '../../config/builder';
 import http from 'http';
-import util from 'util';
-import fs from 'fs';
-import * as PATHS from '../../bin/utils/paths';
 import ip from 'ip';
 import url from 'url';
 
@@ -26,9 +23,11 @@ export async function startServer(spec: {
         logger.log(`------ ${spec.env} mode ------`);
     }
 
-    const httpServer = await createHttpServer({
-        routeHandler: spec.httpHandler,
-    });
+    // const httpServer = await createHttpServer({
+    //     routeHandler: spec.httpHandler,
+    // });
+
+    const httpServer = http.createServer(spec.httpHandler);
 
     await spec.start({httpServer});
 

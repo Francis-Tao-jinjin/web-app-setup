@@ -1,3 +1,9 @@
 .container {
     color: rgb(82, 82, 255);
 }
+
+.testBgImg {
+    width: 400px;
+    height: 300px;
+    background-image: url(/images/bg-test.jpg);
+}
