@@ -7,11 +7,21 @@ import { htmlEntry } from '../utils/start-app/html-entry';
 import * as PATHS from '../bin/utils/paths';
 import url from 'url';
 import util from 'util';
+import { getTransport } from './service/backend-rpc';
+import { WebClientCfg } from './client-config';
 
 const title = 'web app setup stage 1';
 const description = 'setup an web application in your own, without webpack cli or create react app';
 
 async function go() {
+    const transport = getTransport();
+
+    const clientConfig:WebClientCfg = {
+        env: config.env,
+        backendURL: config.backendURL,
+        cdnPath: config.cdnPath,
+    };
+    const CLIENT_CONFIG = JSON.stringify(clientConfig);
     function getHtml(res:http.ServerResponse, htmlSpec?:object) {
         res.writeHead(200, {
             'Content-Type': 'text/html',
@@ -26,7 +36,11 @@ async function go() {
             jsBundle: '/bundle.js',
             manifest: true,
             viewPort: '',
-            bodyHtml: '',
+            bodyHtml: `
+                <script>
+                    window.CLIENT_CONFIG=${CLIENT_CONFIG}
+                </script>
+            `,
             headHtml: '',
         }), 'utf8'));
     }
@@ -75,18 +89,22 @@ async function go() {
                     res.writeHead(400);
                     return res.end('url cannot be empty');
                 }
-                const { pathname } = url.parse(req.url);
-                const publicStaticFile = PATHS.PUBLIC + pathname;
-                const stats = await util.promisify(fs.stat)(publicStaticFile).catch((error) => {
-                    logger.error(error);
-                    res.writeHead(400);
-                    res.end('resource not found');
-                    return;
-                });
-
-                if (stats && stats.isFile()) {
-                    fs.createReadStream(publicStaticFile).pipe(res);
-                    return;
+                const success = await transport.handler(req, res);
+                console.log('transport.handler', success);
+                if (!success) {
+                    const { pathname } = url.parse(req.url);
+                    const publicStaticFile = PATHS.PUBLIC + pathname;
+                    const stats = await util.promisify(fs.stat)(publicStaticFile).catch((error) => {
+                        logger.error(error);
+                        res.writeHead(400);
+                        res.end('resource not found');
+                        return;
+                    });
+    
+                    if (stats && stats.isFile()) {
+                        fs.createReadStream(publicStaticFile).pipe(res);
+                        return;
+                    }
                 }
                 return;
             },

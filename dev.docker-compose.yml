@@ -7,7 +7,7 @@ version: '3.3'
 
 services:
 
-    # uses postgres:10.7 with zhparser extension for better Chinese words search
+    # uses postgres:10.7 with zhparser extension for better asian characters search
     postgres:
         image: necolo/postgres-zhparser:latest
         # build:

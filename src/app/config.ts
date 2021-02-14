@@ -3,6 +3,7 @@ const { argv, build, defaultEnv, B, N, S } = configBuilder();
 
 const config = build({
     port: N('PORT', 9920),
+    backendURL: S('BACKEND_SERVER_URL', ''),
     // ERROR, WARN, INFO, DEBUG
     // 0      1     2     3
     logLevel: N('LOGLEVEL', 3),

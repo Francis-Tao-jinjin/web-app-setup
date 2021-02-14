@@ -1,3 +1,9 @@
+._3ZFjuwhtJJJtsCYC6v2KAj {
+    line-height: 56px;
+    font-family: monospace;
+    padding: 0 10px;
+    font-size: 1.75em;
+}
 ._13GUJjoouwPygUtgFqA2Vp {
     color: rgb(82, 82, 255);
 }
@@ -31120,7 +31126,7 @@ video {
 
 html {
   background-image: url(/images/texture.png);
-  background-color: rgb(233, 163, 104);
+  background-color: rgb(228, 228, 228);
 }
 
 @media (min-width: 640px) {
