@@ -1,6 +1,8 @@
-# Web Application Setup from Scratch - Stage 1
+# A RPC application demo
 
-This repo shows how to build a web application from scratch without using create-react-app and webpack-cli. It also does some CSS configuration so that the Tailwind css can coexist with css module.
+You can find the blog of this branch at: (Thinking In RPC)[https://francis-tao-jinjin.github.io/posts/thinking-in-rpc]
+
+This repo illustrate how to create a PRC API between client and server by dig into the source code of **mudb/muRPC**. The demo program is a simple RPC calculator.
 
 How to run:
 you need to open two terminal prompt, 1 is for compiling the code, another is for starting the server.

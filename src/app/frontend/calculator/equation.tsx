@@ -21,9 +21,9 @@ export function Equation (props:{
     }, [numberA, numberB]);
 
     return (
-        <div className='flex justify-center'>
+        <div className={['flex justify-center', style.equation].join(' ')}>
             <input
-                className='border border-gray-300 p-2 my-2 rounded-md focus:outline-none focus:ring-2 ring-blue-200'
+                className='w-32 border border-gray-300 p-2 my-2 rounded-md focus:outline-none focus:ring-2 ring-blue-200'
                 value={displayA}
                 onChange={(e) => {
                     const text = e.target.value.trim();
@@ -38,14 +38,13 @@ export function Equation (props:{
                         const parseValue = parseFloat(match[0]);
                         if (!Number.isNaN(parseValue)) {
                             setNumberA(parseValue);
-                            setDisplayA(match[0]);
                         }
                     }
                 }}
                 ></input>
             <span className={style.symbol}>{props.symbol}</span>
             <input
-                className='border border-gray-300 p-2 my-2 rounded-md focus:outline-none focus:ring-2 ring-blue-200'
+                className='w-32 border border-gray-300 p-2 my-2 rounded-md focus:outline-none focus:ring-2 ring-blue-200'
                 value={displayB}
                 onChange={(e) => {
                     const text = e.target.value.trim();
@@ -60,7 +59,6 @@ export function Equation (props:{
                         const parseValue = parseFloat(match[0]);
                         if (!Number.isNaN(parseValue)) {
                             setNumberB(parseValue);
-                            setDisplayB(parseValue + '');
                         }
                     }
                 }}
