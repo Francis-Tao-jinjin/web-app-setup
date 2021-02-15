@@ -1,6 +1,6 @@
 # A RPC application demo
 
-You can find the blog of this branch at: (Thinking In RPC)[https://francis-tao-jinjin.github.io/posts/thinking-in-rpc]
+You can find the blog of this branch at: [Thinking In RPC](https://francis-tao-jinjin.github.io/posts/thinking-in-rpc)
 
 This repo illustrate how to create a PRC API between client and server by dig into the source code of **mudb/muRPC**. The demo program is a simple RPC calculator.
 
